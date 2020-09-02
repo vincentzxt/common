@@ -1,0 +1,100 @@
+{
+  "id": "1796230",
+  "name": "wuye",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "5912041",
+      "name": "权限",
+      "font_class": "auth",
+      "unicode": "e711",
+      "unicode_decimal": 59153
+    },
+    {
+      "icon_id": "9330150",
+      "name": "个人",
+      "font_class": "mycenter",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
+    {
+      "icon_id": "9544587",
+      "name": "配置",
+      "font_class": "custom",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "9836225",
+      "name": "配置",
+      "font_class": "payment_received",
+      "unicode": "e687",
+      "unicode_decimal": 59015
+    },
+    {
+      "icon_id": "9804107",
+      "name": "列表",
+      "font_class": "list",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "8090170",
+      "name": "bg_小区",
+      "font_class": "community",
+      "unicode": "e626",
+      "unicode_decimal": 58918
+    },
+    {
+      "icon_id": "5702051",
+      "name": "场馆设置",
+      "font_class": "venues",
+      "unicode": "e63f",
+      "unicode_decimal": 58943
+    },
+    {
+      "icon_id": "7024217",
+      "name": "统计分析",
+      "font_class": "analysis",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "10207886",
+      "name": "合同",
+      "font_class": "contract",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "4438888",
+      "name": "空间",
+      "font_class": "space",
+      "unicode": "e6f9",
+      "unicode_decimal": 59129
+    },
+    {
+      "icon_id": "8333961",
+      "name": "楼盘",
+      "font_class": "building",
+      "unicode": "e68c",
+      "unicode_decimal": 59020
+    },
+    {
+      "icon_id": "1509756",
+      "name": "渠道",
+      "font_class": "channel",
+      "unicode": "e671",
+      "unicode_decimal": 58993
+    },
+    {
+      "icon_id": "12010406",
+      "name": "客户",
+      "font_class": "customer",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    }
+  ]
+}

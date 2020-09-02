@@ -1,0 +1,442 @@
+/**
+ * 扩展样式
+ */
+body {
+    font-family: Helvetica Neue For Number,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif;
+}
+.i-layout-content-main{
+	height:  calc(~"100vh - 79px");
+}
+.full-height{
+	height: 100%;
+}
+.i-layout-header-color-dark {
+    background: #353b64 !important;
+}
+.ivu-select-input,.ivu-input{
+	font-size: 14px !important;
+}
+.ivu-card-head p{
+	font-size: 14px;
+}
+.i-layout-content-main{
+	margin: 12px 12px 12px 12px !important;
+}
+
+.ivu-menu-horizontal .ivu-menu-item, .ivu-menu-horizontal .ivu-menu-submenu{
+	padding: 0 20px !important;
+}
+.form-view{
+	.ivu-form-item{
+		margin-bottom: 12px !important;
+	}
+}
+
+//修改form表单item样式
+.ivu-form-item{
+	margin-bottom: 24px !important;
+}
+.menu-top{
+	height: 45px;
+	line-height: 45px;
+	margin-top: 8px;
+	background-image: linear-gradient(-55deg, rgba(32, 86, 192, 1) 0%, rgba(39, 104, 232, 1) 100%), linear-gradient( rgba(32, 86, 192, 1), rgba(32, 86, 192, 1));background-blend-mode: normal, normal;
+	color: #fff;
+	text-align: center;
+	font-size: 14px;
+	font-weight: 600;
+}
+
+//left 目录选择项
+.ivu-menu-light.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu):after {
+    content: '';
+    display: block;
+    width: 0px !important;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: #2d8cf0;
+	}
+
+.i-layout-menu-head{
+	// text-align: center;
+}
+
+.i-layout-header-right{
+	width: 400px;
+	text-align: right;
+	font-size: 13px;
+	padding-right: 6px;
+}
+.ivu-menu-submenu-title .i-layout-menu-side-title .i-layout-menu-side-title-text{
+	font-size: 14px;
+	font-weight: 500;
+}
+.i-layout-menu-side .ivu-menu-submenu-title, .i-layout-menu-side .ivu-menu-item {
+    font-size: 14px;
+}	
+// .ivu-table-default{
+// 	border: 1px solid #f2f2f2;
+// 	border-radius: 5px;
+// }
+.ivu-table th {
+	color: #333333;
+	height: 45px !important;
+}
+.ivu-table{
+	.ivu-table-body{
+		 .ivu-table-cell{
+			font-size: 14px;
+			padding-top: 2px;
+			padding-bottom: 2px;
+		 }
+	}
+	
+}
+
+
+.ivu-form .ivu-form-item-label {
+	font-size: 14px;
+	font-weight: 400;
+    color: #848fad !important;
+}
+.ivu-form .ivu-form-item-content {
+	font-size: 14px;
+	font-weight: 400;
+    color: #333333 !important;
+}
+.drawer-content{
+	.ivu-table{
+		font-size: 12px !important;
+	}
+	.ivu-page{
+		font-size: 12px;
+	}
+}
+.ivu-table:before {
+    content: '';
+    width: 100%;
+    height: 0px !important;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-color: #dcdee2;
+    z-index: 4;
+}
+//验证提示文字
+.ivu-form-item-error-tip {
+    font-size: 12px;
+	color: #f5222d !important;
+}
+//必填样式
+.ivu-form-item-required .ivu-form-item-label:before {
+    content: '' !important;
+    display: inline-block;
+    margin-right: 4px;
+    line-height: 1;
+    font-family: SimSun;
+    font-size: 14px;
+    color: #ed4014;
+}
+//必填样式
+.ivu-form-item-required .ivu-form-item-label:after {
+    content: '*' !important;
+    display: inline-block;
+    margin-left: 4px;
+    line-height: 1;
+    font-family: SimSun;
+    font-size: 14px;
+    color: #ed4014;
+}
+//header
+// .ivu-layout-header {
+//     height: 58px !important;
+//     line-height: 58px !important;
+// }
+.list-table{
+	.ivu-card-head{
+		p{font-size: 14px;}
+	}
+}
+.cutomer-modal-box {
+	.ivu-modal-header-inner{
+			text-align: center;
+	}
+}
+.cutomer-modal-box-gay {
+	.ivu-modal-header-inner{
+			text-align: center;
+	}
+	.ivu-modal-body{
+		max-height:80vh; 
+		overflow: auto;
+		padding: 12px 16px !important;
+		background-color: #F7F7F7 !important;
+	}
+	.ivu-card-extra a{
+		font-size: 14px  !important;
+	}
+}
+
+.cutomer-drawer-box-gay {
+	.ivu-drawer-body{
+		padding: 12px 16px !important;
+		background-color: #F7F7F7 !important;
+	}
+	.ivu-tabs-nav-container{
+		background-color: #FFFFFF;
+		height: 45px;
+		line-height: 28px;
+		border:1px solid #e8eaec;
+	}
+	.ivu-tabs-bar{
+		margin-bottom:12px;
+	}
+}
+
+.drawer-no-padding {
+	.ivu-drawer-body{
+		padding: 0px !important;
+	}
+	.drawer-content{
+		padding: 12px 16px;
+		width: 100%;
+		height: calc(~"100vh - 120px");
+		overflow: auto;
+	}
+}	
+.modal-no-padding {
+	.ivu-modal-body{
+		padding: 0px !important;
+	}
+   .modal-content{
+   	padding: 16px 16px;
+   	width: 100%;
+   	height: calc(~"80vh - 60px");
+   	overflow: auto;
+   }
+   
+.modal_tool{
+	background-color: #FFFFFF;
+	top:100px;
+	width: 100%;
+	left: 0;
+	text-align: right;
+	height: 50px;
+	line-height: 50px;
+	padding:5px 12px;
+	font-size: 18px;
+	color: #000000;
+	border-bottom: 1px solid #e8e8e8;
+	margin-bottom:5px;
+}
+
+
+}
+.backcolor-gay{
+	background-color: #F7F7F7;
+}
+.link-font-color{
+	color: #4c5aff;
+}
+
+.ivu-modal-body{
+		max-height:80vh; 
+		overflow: auto;
+}
+
+.ivu-drawer-body {
+    height: calc(~"100% - 40px");
+}
+
+.drawer_tool{
+	background-color: #FFFFFF;
+	// position: absolute;
+	top:0;
+	width: 100%;
+	left: 0;
+	text-align: right;
+	height: 50px;
+	line-height: 50px;
+	padding:5px 12px;
+	font-size: 18px;
+	color: #000000;
+	border-bottom: 1px solid #e8e8e8;
+	margin-bottom:5px;
+	.ivu-list-item-action > li{
+		color: #828692 !important;
+		padding: 0 12px;
+		font-weight: 500;
+		line-height: 18px;
+	}
+}
+.cus_title{
+	color: #17233d !important;
+	font-weight: 500;
+}
+
+.empty-info{
+	text-align: center;
+	height: 100px;
+	line-height: 100px;
+	color: #CCCCCC;
+}
+
+//列表统计
+.list-total{
+	width: 100%;
+	background-color: #FFFFFF;
+	padding: 24px 36px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	.list-item{
+		width: 100%;
+		padding-left: 36px;
+		border-left: 1px solid #e8eaec;
+		.title{
+			color:#7085a1;
+			font-weight: 500;
+			font-size: 12px;
+			line-height: 24px;
+			margin-bottom: 10px;
+		}
+		.content{
+			font-size: 20px;
+			line-height: 24px;
+			font-weight: 600;
+		}
+	}
+	.list-item:first-child{
+		border-left: none !important;
+	}
+}
+
+.ivu-drawer-header-inner{
+	text-align: center;
+}
+//drawer页脚工具条
+.drawer-footer-tool{
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        border-top: 1px solid #e8e8e8;
+        padding: 16px 16px 20px 16px;
+        text-align: right;
+        background: #fff;
+}
+  .demo-spin-icon-load{
+        animation: ani-demo-spin 1s linear infinite;
+}	
+
+.del_item{
+		position: absolute;
+		right:10px;
+		top:0;
+		z-index: 999;
+}
+.list-index-card{
+	.ivu-card-body{
+		padding: 10px  !important;
+	}
+	.ivu-card-head p{
+		font-size: 14px;
+	}
+}
+
+.search_box{
+	 height: 40px;
+	 .ivu-select-input, .ivu-input{
+		 font-size: 12px !important;
+	 }
+	.ivu-card-body{
+		padding: 0px 0px 0px  !important;
+	}
+	
+	.ivu-radio-group-button .ivu-radio-wrapper {
+	    border: none !important;
+	    box-shadow: none !important;
+	    padding: 0 6px;
+	}
+	.ivu-radio-group-button .ivu-radio-wrapper:before, .ivu-radio-group-button .ivu-radio-wrapper:after {
+	    width: 0 !important;
+	}
+}
+.list-card{
+	.ivu-card-body{
+		padding: 0 !important;
+	}
+	.ivu-card-head p{
+		font-size: 14px;
+	}
+	padding-bottom: 10px;
+}
+.list-no-page-card{
+	.ivu-card-body{
+		padding: 0 !important;
+	}
+	.ivu-card-head p{
+		font-size: 14px;
+	}
+}
+
+.echar-title{
+	font-size: 16px;
+	font-weight: 500;
+	color: #000000;
+}
+
+.stat-box{
+	.ivu-card{
+		font-size: 14px !important;
+		
+	}
+	.stat-card-big-font{
+		font-size: 24px;
+		color: #333333;
+		font-weight: 600;
+	}
+	.color-gray{
+		color: #989aa3;
+		font-size: 14px;
+	}
+}
+
+
+//base 表格工具栏
+.base-tools{
+	padding: 10px 16px;
+	.title{
+		font-size: 14px;
+		color: #333333;
+		font-weight: 500;
+	}
+}
+
+
+.free-box{
+	.title{
+		font-size: 14px;
+		color:#333333;
+		font-weight: 500;
+	}
+}
+
+.title-large{
+	font-size: 14px;
+	line-height: 40px;
+	font-weight: 500;
+	color: #2d8cf0;
+	margin-left: 10px;
+}
+
+table{
+	// .ivu-tag{
+	// 	background-color:  #2d8cf0 !important;
+	// 	.ivu-tag-text{
+	// 	  color: #FFFFFF !important;
+	// 	}
+	// }
+}
