@@ -33,7 +33,7 @@ const auth = {
 	menu_id:'2-2',
 	is_public: false, 
 	menu_uncheck:false,
-	custom: 'iconfont icon-mycenter',
+	custom: 'iconfont icon-auth',
   children: [
   	{
 			path: `${pre}user`,

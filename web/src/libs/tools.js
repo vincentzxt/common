@@ -56,7 +56,7 @@ export function repair2Num(s) {
 * @description 将日期对象格式化成字符串
 * @param (dateObj) 日期对象
 */
-export function dateFormat(date) {
+export function formatDate(date) {
   let year = date.getFullYear();
   let month = date.getMonth() + 1;
   let day = date.getDate();
@@ -106,4 +106,89 @@ export function getDateRang(str)  {
       break
   }
   return [ dateFormat(sDate), dateFormat(eDate) ]
+}
+
+/**
+* @description 格式化树型菜单
+* @param (Array) array
+*/
+export function formatTree(array) {
+
+  var treeData = getData(array);
+  return treeData;
+
+  function getData(array) {
+    var result = [];
+    for (let item of array) {
+      if (item.fid == 0) {
+        var parent = {
+          id: item.id,
+          title: item.title,
+          expand: true,
+          selected: true
+        }
+        parent.children = getChilds(item.id, array);
+        result.push(parent);
+      }
+    }
+    return result;
+  }
+
+  function getChilds(id, array) {
+    let childs = new Array();
+    for (let item of array) {
+      if (item.fid == id) {
+        childs.push ({ id: item.id, title: item.title, expand: true, selected: false })
+      }
+    }
+    for (let child of childs) {
+      let tmp = getChilds(child.id, array);
+      if (tmp.length > 0) {
+        child.children = tmp;
+      }
+    }
+    return childs;
+  }
+}
+
+/**
+* @description 格式化级联选择菜单
+* @param (Array) array
+*/
+export function formatCascader(array) {
+
+  var treeData = getData(array);
+  return treeData;
+
+  function getData(array) {
+    var result = [];
+    for (let item of array) {
+      if (item.fid == 0) {
+        var parent = {
+          id: item.id,
+          value: item.title,
+          label: item.title
+        }
+        parent.children = getChilds(item.id, array);
+        result.push(parent);
+      }
+    }
+    return result;
+  }
+
+  function getChilds(id, array) {
+    let childs = new Array();
+    for (let item of array) {
+      if (item.fid == id) {
+        childs.push ({ id: item.id, value: item.title, label: item.title })
+      }
+    }
+    for (let child of childs) {
+      let tmp = getChilds(child.id, array);
+      if (tmp.length > 0) {
+        child.children = tmp;
+      }
+    }
+    return childs;
+  }
 }

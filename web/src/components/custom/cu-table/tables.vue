@@ -2,16 +2,17 @@
 	<div>
 		<div class="cu-table-form">
 			<div class="cu-table-form-left">
-				<Button v-if="showAdd" class="cu-table-btn" type="primary" icon="md-add" @click="handleAdd">新增</Button>
+				<Button v-if="showAdd" class="br5" type="primary" icon="md-add" @click="handleAdd">新增</Button>
         <Dropdown v-if="showEnable || showDisable || showDel" class="ml10" trigger="click" @on-click="handleBatch">
-          <Button class="cu-table-btn" icon="md-list">批量操作</Button>
+          <Button class="br5" icon="md-list">批量操作</Button>
           <DropdownMenu slot="list">
             <DropdownItem v-if="showEnable" name="enable">启用</DropdownItem>
-            <DropdownItem v-if="showDisable" name="disable">禁用</DropdownItem>
+            <DropdownItem v-if="showDisable" name="disable">停用</DropdownItem>
             <DropdownItem v-if="showDel" name="delete">删除</DropdownItem>
           </DropdownMenu>
         </DropDown>
-				<Button v-if="showExport" class="cu-table-btn ml10" icon="md-exit" @click="handleExport">导出</Button>
+				<Button v-if="showExport" class="br5 ml10" @click="handleExport">
+					<Icon class="mr10" custom="iconfont icon-daochu" size="4" />导出</Button>
 			</div>
 			<div class="cu-table-form-right">
 				<div class="cu-table-form-right-condition">
@@ -21,7 +22,7 @@
 					<slot name="condition4"></slot>
 					<slot name="condition5"></slot>
         </div>
-        <Button class="cu-table-btn ml10" type="primary" icon="md-search" @click="handleSearch">搜索</Button>
+        <Button class="br5 ml10" type="primary" icon="md-search" @click="handleSearch">搜索</Button>
 			</div>
 		</div>
 		<div class="cu-table-body mt10">
@@ -94,7 +95,7 @@ export default {
 	},
 	data() {
 		return {
-			delList: [],
+			selList: [],
 			spinShow: false
 		}
 	},
@@ -108,18 +109,22 @@ export default {
 		//复选框发生改变
 		handleSelectChange (selection) {
       if (selection.length !== 0) {
-        this.delList = []
+        this.selList = []
         for (let i = 0; i < selection.length; i++) {
-          this.delList.push(selection[i].id)
+          this.selList.push(selection[i].id)
         }
       } else {
-        this.delList = []
+        this.selList = []
       }
 		},
 		//点击批处理按钮
 		handleBatch(val) {
 			if (val == 'delete') {
-				this.$emit("on-batch", { name: 'delete', data: this.delList });
+				this.$emit("on-batch", { name: 'delete', data: this.selList });
+			} else if (val == 'enable') {
+				this.$emit("on-batch", { name: 'enable', data: this.selList });
+			} else if (val == 'disable') {
+				this.$emit("on-batch", { name: 'disable', data: this.selList });
 			}
 		},
 		//点击导出按钮

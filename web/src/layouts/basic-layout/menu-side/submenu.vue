@@ -4,8 +4,8 @@
             <i-menu-side-title :menu="menu" />
         </template>
         <template v-for="(item, index) in menu.children">
-            <i-menu-side-item v-if="item.children === undefined || !item.children.length" :menu="item" :key="index" />
-            <i-menu-side-submenu v-else :menu="item" :key="index" />
+            <i-menu-side-item v-if="item.children === undefined || !item.children.length" :menu="item" :key="index" style="margin-left:12px;" />
+            <i-menu-side-submenu v-else :menu="item" :key="index"/>
         </template>
     </Submenu>
 </template>

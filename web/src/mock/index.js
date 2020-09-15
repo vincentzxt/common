@@ -2,40 +2,70 @@ import Mock from 'mockjs';
 import Setting from '@/setting';
 
 import { loginData } from './account/loginData';
-import { orgPageData } from './party_affairs_center/orgData';
-import { orgPage1Data } from './party_affairs_center/orgData';
-import { orgPage2Data } from './party_affairs_center/orgData';
+
+import { orgData } from './affairs_center/orgData';
+import { orgPostData } from './affairs_center/orgPostData';
+import { memberData } from './affairs_center/memberData';
+
+import { democraticData } from './activity_center/democraticData';
+import { threeMeetingListData } from './activity_center/threeMeetingListData';
+import { lifeData } from './activity_center/lifeData';
 
 const apiurl = Setting.apiBaseURL;
 
 Mock.mock(apiurl + '/api/auth/login', 'post', loginData);
-Mock.mock(apiurl + '/api/party_affairs_center/org/list', 'post', (data) => {
-  let pageInfo = JSON.parse(data.body);
-  let page = pageInfo.page;
-  let pageSize = pageInfo.pageSize;
-  let name = pageInfo.name;
-  let address = pageInfo.address;
-  if (name !== '' || address !== '') {
-    let data = [];
-    for (let item of orgPageData.data.result) {
-      if (name && item.name.indexOf(name) !== -1) {
-        data.push(item);
-      }
-      if (address && item.address.indexOf(address) !== -1) {
-        data.push(item);
-      }
-    }
-    orgPageData.data.pageInfo.totalNum = data.length;
-    orgPageData.data.pageInfo.pages = orgPageData.data.pageInfo.totalNum / 10;
-    orgPageData.data.result = data;
-    return orgPageData;
-  } else {
-    if ((page == 1 || page == 2) && pageSize == 20) {
-      return orgPageData;
-    } else if (page == 1 && pageSize == 10) {
-      return orgPage1Data;
-    } else if (page == 2 && pageSize == 10) {
-      return orgPage2Data;
+
+Mock.mock(apiurl + '/api/affairs_center/org/list', 'get', (data) => {
+  return orgData;
+});
+Mock.mock(apiurl + '/api/affairs_center/org/post/list', 'get', (data) => {
+  return orgPostData;
+});
+Mock.mock(apiurl + '/api/affairs_center/member/list', 'get', (data) => {
+  return memberData;
+});
+Mock.mock(apiurl + '/api/affairs_center/member/listById', 'post', (data) => {
+  let body = JSON.parse(data.body);
+  let orgId = body.oid;
+  let result =  memberData.data.result.filter((item)=>{
+    return item.oid == orgId;
+  })
+  let sendData = JSON.parse(JSON.stringify(memberData));
+  sendData['data']['result'] = result;
+  return sendData;
+});
+
+Mock.mock(apiurl + '/api/activity_center/democratic/list', 'get', (data) => {
+  return democraticData;
+});
+Mock.mock(apiurl + '/api/activity_center/threeMeeting/list', 'get', (data) => {
+  return threeMeetingListData;
+});
+Mock.mock(apiurl + '/api/activity_center/life/list', 'get', (data) => {
+  return lifeData;
+});
+
+/*const getData = (post, data, keys) => {
+  let body = JSON.parse(post.body);
+  let result = [];
+  let search = 0;
+  for (let key of keys) {
+    if (body[key]) {
+      search = 1;
     }
   }
-});
+  for (let item of data['data']['result']) {
+    if (search == 1) {
+      for (let key of keys) {
+        if (body[key] && item[key].indexOf(body[key]) !== -1) {
+          result.push(item);
+        }
+      }
+    } else {
+      result.push(item);
+    }
+  }
+  let sendData = JSON.parse(JSON.stringify(data));
+  sendData['data']['result'] = result;
+  return sendData;
+}*/

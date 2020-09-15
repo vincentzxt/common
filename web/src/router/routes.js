@@ -1,5 +1,7 @@
 import BasicLayout from '@/layouts/basic-layout';
-import party_affairs_center from './modules/party_affairs_center';
+import affairs_center from './modules/affairs_center';
+import study_center from './modules/study_center';
+import activity_center from './modules/activity_center';
 import setting from './modules/setting';
 
 /**
@@ -10,7 +12,7 @@ const frameIn = [
     {
         path: '/',
         redirect: {
-            name: 'party_affairs_center'
+            name: 'affairs_center'
         },
         component: BasicLayout,
         children: [
@@ -58,7 +60,9 @@ const frameIn = [
             }
         ]
     },
-    party_affairs_center,
+    affairs_center,
+    study_center,
+    activity_center,
     setting
 ];
 

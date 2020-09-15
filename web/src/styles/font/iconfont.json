@@ -1,16 +1,149 @@
 {
-  "id": "1796230",
-  "name": "wuye",
+  "id": "2042201",
+  "name": "dangjian",
   "font_family": "iconfont",
   "css_prefix_text": "icon-",
   "description": "",
   "glyphs": [
     {
-      "icon_id": "5912041",
-      "name": "权限",
-      "font_class": "auth",
-      "unicode": "e711",
-      "unicode_decimal": 59153
+      "icon_id": "4909260",
+      "name": "导入",
+      "font_class": "daoru",
+      "unicode": "e67b",
+      "unicode_decimal": 59003
+    },
+    {
+      "icon_id": "4909259",
+      "name": "导出",
+      "font_class": "daochu",
+      "unicode": "e67a",
+      "unicode_decimal": 59002
+    },
+    {
+      "icon_id": "16407161",
+      "name": "红旗",
+      "font_class": "hongqi",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "7921576",
+      "name": "新闻",
+      "font_class": "dongtai",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "7352317",
+      "name": "会议",
+      "font_class": "huiyi",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "8139466",
+      "name": "组织",
+      "font_class": "zuzhi",
+      "unicode": "e641",
+      "unicode_decimal": 58945
+    },
+    {
+      "icon_id": "9717845",
+      "name": "多人聊天",
+      "font_class": "duoren",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "6204826",
+      "name": "三会一课",
+      "font_class": "threeMeetings",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "4268125",
+      "name": "生活",
+      "font_class": "life",
+      "unicode": "e631",
+      "unicode_decimal": 58929
+    },
+    {
+      "icon_id": "7881783",
+      "name": "品牌",
+      "font_class": "brand",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "10473247",
+      "name": "主题党日",
+      "font_class": "partyDay",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
+    {
+      "icon_id": "14996930",
+      "name": "评议大会考核",
+      "font_class": "democratic",
+      "unicode": "e69c",
+      "unicode_decimal": 59036
+    },
+    {
+      "icon_id": "3755550",
+      "name": "笔记",
+      "font_class": "note",
+      "unicode": "e618",
+      "unicode_decimal": 58904
+    },
+    {
+      "icon_id": "6861207",
+      "name": "题库",
+      "font_class": "question",
+      "unicode": "e6e9",
+      "unicode_decimal": 59113
+    },
+    {
+      "icon_id": "8622677",
+      "name": "考试",
+      "font_class": "exam",
+      "unicode": "e61e",
+      "unicode_decimal": 58910
+    },
+    {
+      "icon_id": "10979732",
+      "name": "专题",
+      "font_class": "thematic",
+      "unicode": "e642",
+      "unicode_decimal": 58946
+    },
+    {
+      "icon_id": "14160599",
+      "name": "学习资料",
+      "font_class": "data",
+      "unicode": "e619",
+      "unicode_decimal": 58905
+    },
+    {
+      "icon_id": "15021968",
+      "name": "慧党建",
+      "font_class": "birthday",
+      "unicode": "e88f",
+      "unicode_decimal": 59535
+    },
+    {
+      "icon_id": "5964268",
+      "name": "党费缴纳",
+      "font_class": "payment",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "6845530",
+      "name": "党员管理",
+      "font_class": "member",
+      "unicode": "e6cb",
+      "unicode_decimal": 59083
     },
     {
       "icon_id": "9330150",
@@ -20,81 +153,32 @@
       "unicode_decimal": 58896
     },
     {
-      "icon_id": "9544587",
-      "name": "配置",
-      "font_class": "custom",
-      "unicode": "e60d",
-      "unicode_decimal": 58893
-    },
-    {
-      "icon_id": "9836225",
-      "name": "配置",
-      "font_class": "payment_received",
-      "unicode": "e687",
-      "unicode_decimal": 59015
-    },
-    {
-      "icon_id": "9804107",
-      "name": "列表",
-      "font_class": "list",
-      "unicode": "e602",
-      "unicode_decimal": 58882
-    },
-    {
-      "icon_id": "8090170",
-      "name": "bg_小区",
-      "font_class": "community",
+      "icon_id": "10190138",
+      "name": "权限分配",
+      "font_class": "flow",
       "unicode": "e626",
       "unicode_decimal": 58918
     },
     {
-      "icon_id": "5702051",
-      "name": "场馆设置",
-      "font_class": "venues",
-      "unicode": "e63f",
-      "unicode_decimal": 58943
+      "icon_id": "12860985",
+      "name": "权限",
+      "font_class": "auth",
+      "unicode": "e602",
+      "unicode_decimal": 58882
     },
     {
-      "icon_id": "7024217",
-      "name": "统计分析",
-      "font_class": "analysis",
+      "icon_id": "14966339",
+      "name": "关系",
+      "font_class": "relation",
+      "unicode": "e666",
+      "unicode_decimal": 58982
+    },
+    {
+      "icon_id": "6882592",
+      "name": "组织",
+      "font_class": "organization",
       "unicode": "e600",
       "unicode_decimal": 58880
-    },
-    {
-      "icon_id": "10207886",
-      "name": "合同",
-      "font_class": "contract",
-      "unicode": "e601",
-      "unicode_decimal": 58881
-    },
-    {
-      "icon_id": "4438888",
-      "name": "空间",
-      "font_class": "space",
-      "unicode": "e6f9",
-      "unicode_decimal": 59129
-    },
-    {
-      "icon_id": "8333961",
-      "name": "楼盘",
-      "font_class": "building",
-      "unicode": "e68c",
-      "unicode_decimal": 59020
-    },
-    {
-      "icon_id": "1509756",
-      "name": "渠道",
-      "font_class": "channel",
-      "unicode": "e671",
-      "unicode_decimal": 58993
-    },
-    {
-      "icon_id": "12010406",
-      "name": "客户",
-      "font_class": "customer",
-      "unicode": "e611",
-      "unicode_decimal": 58897
     }
   ]
 }

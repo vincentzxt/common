@@ -1,7 +1,7 @@
 <template>
     <div>
         <MenuItem :to="menu.path" :replace="menu.replace" :target="menu.target" :name="menu.path" @click.native="handleClick(menu.path)">
-           <i-menu-side-title :menu="menu" :hide-title="hideTitle" style="margin-left: 12px;"/>
+           <i-menu-side-title :menu="menu" :hide-title="hideTitle"/>
         </MenuItem>
     </div>
 </template>

@@ -1,11 +1,27 @@
 // 菜单，顶栏
 export default [
 	{
-		path: '/party_affairs_center',
+		path: '/affairs_center',
     title: '党务中心',
     custom: 'iconfont icon-dangjian',
     hideSider: false, // 是否隐藏侧边栏
-    name: 'party_affairs_center', // 用 name 区分哪些二级菜单显示
+    name: 'affairs_center', // 用 name 区分哪些二级菜单显示
+    auth: ['vip','common','trial'] // 权限
+  },
+  {
+		path: '/study_center',
+    title: '学习中心',
+    custom: 'iconfont icon-dangjian',
+    hideSider: false, // 是否隐藏侧边栏
+    name: 'study_center', // 用 name 区分哪些二级菜单显示
+    auth: ['vip','common','trial'] // 权限
+  },
+  {
+		path: '/activity_center',
+    title: '活动中心',
+    custom: 'iconfont icon-dangjian',
+    hideSider: false, // 是否隐藏侧边栏
+    name: 'activity_center', // 用 name 区分哪些二级菜单显示
     auth: ['vip','common','trial'] // 权限
   },
   {

@@ -1,0 +1,122 @@
+.container {
+  display: flex;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.sider {
+  border-right: 1px solid #dcdee2;
+  width: 17%;
+  &-header {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    border-bottom: 1px solid #dcdee2;
+    &-title {
+      width: 85%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    &-btn {
+      width: 15%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+  }
+  &-content {
+    margin-top: 20px;
+    padding-left: 20px;
+  }
+}
+
+.body {
+  width: 83%;
+  padding: 20px;
+  &-header {
+    &-group {
+      padding: 10px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &-icon {
+        margin-right: 20px;
+      }
+      &-text {
+        &-title {
+          font-size: 14px;
+        }
+        &-desc {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+  &-middle {
+    margin-top: 30px;
+    display: flex;
+    &-img {
+      height: 180px;
+    }
+    &-text {
+      font-size: 14px;
+      margin-left: 30px;
+      &-group {
+        margin-bottom: 10px;
+        display: flex;
+        &-desc {
+        }
+        &-title {
+          font-weight: bold;
+        }
+        &-photo {
+          width: 110px;
+        }
+      }
+    }
+  }
+  &-content {
+    margin-top: 30px;
+    &-title {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 400;
+      padding: 20px 0;
+      border-bottom: 0.5px dashed #e8eaec;
+      &-text {
+        margin-left: 10px;
+      }
+      &-desc {
+        color: #ee4930;
+      }
+    }
+    &-child {
+      padding: 30px 0;
+      font-size: 14px;
+      &-group {
+        display: flex;
+        align-items: center;
+        &-text {
+          margin-left: 10px;
+          &-desc {
+            margin-top: 5px;
+            font-size: 10px;
+            color: #808695;
+          }
+        }
+      }
+    }
+  }
+}
+
+.ivu-tree .ivu-icon-ios-arrow-forward:before {
+  content: "\F341";
+  color: #ee4930;
+  font-size: 20px;
+  display: block;
+}

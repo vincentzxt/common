@@ -1,0 +1,119 @@
+.container {
+  display: flex;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.sider {
+  border-right: 1px solid #dcdee2;
+  width: 17%;
+  &-header {
+    height: 60px;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #dcdee2;
+  }
+  &-content {
+    margin-top: 20px;
+    padding-left: 20px;
+  }
+}
+
+.body {
+  width: 83%;
+  padding: 20px;
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    &-menu {
+      width: 23%;
+      font-size: 14px;
+      padding: 8px 0;
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      border-radius: 5px;
+    }
+    &-selMenu {
+      color: #fff;
+      background-color: #ee4930;
+      border: 0.5px solid #e8eaec;
+    }
+    &-noSelMenu {
+      background-color: #fff;
+      border: 0.5px solid #e8eaec;
+    }
+  }
+  &-middle {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    &-left {
+      display: flex;
+    }
+    &-right {
+      display: flex;
+      &-select {
+        width: 100px;
+      }
+      &-input {
+        width: 200px;
+      }
+    }
+  }
+  &-content {
+    margin-top: 20px;
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-top: 0.5px dashed #e8eaec;
+    &-group {
+      width: 24%;
+      display: flex;
+      justify-content: space-between;
+      align-content: center;
+      border: 0.5px solid #e8eaec;
+      padding: 15px;
+      &-left{
+        width: 65%;
+        &-title {
+          font-size: 14px;
+          display: flex;
+          justify-content: space-between;
+          align-content: center;
+          &-left {
+          }
+          &-right {
+          }
+        }
+        &-desc {
+          font-size: 12px;
+        }
+        &-desc2 {
+          display: flex;
+          font-size: 12px;
+        }
+      }
+      &-right{
+        width: 30%;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        &-photo {
+          height: 80px;
+        }
+      }
+    }
+  }
+}
+
+.ivu-tree .ivu-icon-ios-arrow-forward:before {
+  content: "\F341";
+  color: #ee4930;
+  font-size: 20px;
+  display: block;
+}

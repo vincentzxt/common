@@ -53,6 +53,8 @@ Vue.component('i-link', iLink);
 
 importDirective(Vue);
 
+Vue.prototype.screenHeight = document.documentElement.clientHeight || document.body.clientHeight;
+
 new Vue({
     mixins: [mixinApp],
     router,

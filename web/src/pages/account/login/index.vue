@@ -15,7 +15,7 @@
 					</FormItem>
 					<div class="page-account-auto-login">
 						<Checkbox v-model="autoLogin">{{ $t('page.login.remember') }}</Checkbox>
-						<a style="color: #d62321;" href="">{{ $t('page.login.forgot') }}</a>
+						<a style="color: #ee4930;" href="">{{ $t('page.login.forgot') }}</a>
 					</div>
 					<Button type="primary" class="login-btn" size="large" :loading="loading" @click="handleSubmit">{{ $t('page.login.submit') }}</Button>
 				</Form>
