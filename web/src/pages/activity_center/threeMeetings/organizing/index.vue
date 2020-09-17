@@ -33,11 +33,11 @@
 				columns: [
 					{ type: 'selection', width: 60, align: 'center', export: 0 },
 					{ title: '序号', width: 100, key: 'id', sortable: true, export: 1 },
-					{ title: '党组织', key: 'title', sorttable: true, export: 1 },
-					{ title: '支部大会', key: 'branch', export: 1 },
-					{ title: '支委会议', key: 'committee', export: 1 },
-					{ title: '党小组会', key: 'group', export: 1 },
-					{ title: '党课', key: 'cours', export: 1 },
+					{ title: '党组织', key: 'title', align: 'center', sorttable: true, export: 1 },
+					{ title: '支部大会', key: 'branch', align: 'center', export: 1 },
+					{ title: '支委会议', key: 'committee', align: 'center', export: 1 },
+					{ title: '党小组会', key: 'group', align: 'center', export: 1 },
+					{ title: '党课', key: 'cours', align: 'center', export: 1 },
 					{
 						title: '操作',
 						key: 'action',
@@ -173,8 +173,8 @@
 			handleGotoList(val) {
 				this.$router.push(
 					{
-						path: '/activity_center/threeMeetings/list',
-						query: { org: val.title }
+						name: 'activity_center-threeMeetings-list',
+						params: { org: val.title }
 					}
 				)
 			}

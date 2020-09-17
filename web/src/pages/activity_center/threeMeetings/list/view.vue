@@ -1,7 +1,7 @@
 <template>
   <div>
     <Modal v-model="showModal" title="会议详情" :loading="showLoading" :mask-closable="false" width="60%" :styles="{top: '20px'}" class="cutomer-modal-box-gay" @on-cancel="handleClose" footer-hide mask-closable>
-      <Form ref="form" :model="formData" label-position="left" :label-width="100" label-colon>
+      <Form ref="form" :model="formData" :label-width="100" label-colon>
 				<Card dis-hover class="ivu-mb-8" :bordered="false">
 					<Row :gutter="16">
 					  <Col span="8">

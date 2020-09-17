@@ -1,22 +1,34 @@
 <template>
   <div>
-    <Modal v-model="showModal" title="添加民主评议" :loading="showLoading" :mask-closable="false" width="40%" :styles="{top: '20px'}" class="cutomer-modal-box-gay" @on-ok="handleSubmit" @on-cancel="handleClose">
+    <Modal v-model="showModal" title="新增党日活动计划" :loading="showLoading" :mask-closable="false" width="60%" :styles="{top: '20px'}" class="cutomer-modal-box-gay" @on-ok="handleSubmit" @on-cancel="handleClose">
       <Form ref="form" :model="formData" :rules="ruleValidata" :label-width="100">
 				<Card dis-hover class="ivu-mb-8" :bordered="false">
-					<Row>
+					<Row :gutter="16">
 					  <Col span="24">
-              <FormItem prop="title" label="评议标题">
-                <Input type="text" v-model="formData.title" placeholder="请输入评议标题"/>
+              <FormItem prop="title" label="标题">
+                <Input type="text" v-model="formData.title" placeholder="请输入标题"/>
+              </FormItem>
+            </Col>
+            <Col span="12">
+              <FormItem prop="date" label="活动时间">
+                <DatePicker type="datetime" v-model="formData.date" placeholder="选择日期" format="yyyy-MM-dd hh:mm:ss" style="width:100%;" transfer></DatePicker>
+              </FormItem>
+            </Col>
+            <Col span="12">
+              <FormItem prop="auditor" label="审核人员">
+                <Select v-model="formData.auditor">
+                  <Option v-for="(item, index) in filterMemberList" :key="index" :value="item.name">{{item.name}}</Option>
+                </Select>
               </FormItem>
             </Col>
             <Col span="24">
-              <FormItem prop="date" label="评议日期">
-                <DatePicker type="date" v-model="formData.date" placeholder="选择日期" format="yyyy-MM-dd" style="width:100%;" transfer></DatePicker>
+              <FormItem prop="content" label="活动内容">
+                <Input type="textarea" :rows="5" v-model="formData.content"/>
               </FormItem>
             </Col>
             <Col span="24">
-              <FormItem prop="org" label="评议组织">
-                <Cascader :data="formatOrgList" v-model="formData.org" :render-format="orgFormat" change-on-select transfer></Cascader>
+              <FormItem prop="require" label="活动要求">
+                <Input type="textarea" :rows="5" v-model="formData.require"/>
               </FormItem>
             </Col>
           </Row>
@@ -28,15 +40,13 @@
 
 <script>
   import { logMessage } from '@/libs/data';
-  import { formatCascader } from '@/libs/tools';
   export default {
     props: {
       value: {
         type: Boolean,
         default: false
       },
-      orgList: {
-        type: Array,
+      memberList: {
         default: () => {
           return []
         }
@@ -49,26 +59,26 @@
         formData: {
           title: '',
           date: '',
-          org: [],
-          record: '',
-          proposal: '',
-          plan: ''
+          auditor: '',
+          content: '',
+          require: ''
         },
         ruleValidata: {
           title: { required: true, message: '标题不能为空', trigger: 'blur' },
-          date: { required: true, type: 'date', message: '日期不能为空', trigger: 'change' },
-          org: { required: true, type: 'array', message: '组织不能为空', trigger: 'change' }
+          date: { required: true, type: 'date', message: '活动时间不能为空', trigger: 'change' },
+          auditor: { required: true, message: '审核人员不能为空', trigger: 'change' }
         }
       }
     },
     computed: {
-      formatOrgList() {
-        return formatCascader(this.orgList)
+      filterMemberList() {
+        return this.memberList.filter((item)=>{
+          return item.isSecretary == 1
+        })
       }
     },
     methods: {
       handleSubmit() {
-        console.log(this.formData);
         this.$refs.form.validate(valid => {
           if (valid) {
             let senddata = this.formData;
@@ -91,14 +101,6 @@
       },
       handleClose() {
         this.$emit('on-close');
-      },
-      orgFormat(labels, selectedData) {
-        let index = labels.length - 1;
-        let data = selectedData[index] || false;
-        if (data && data.code) {
-          return labels[index] + ' - ' + data.code;
-        }
-        return labels[index];
       }
     },
     watch: {

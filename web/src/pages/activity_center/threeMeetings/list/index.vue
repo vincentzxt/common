@@ -39,21 +39,23 @@
 				pageTitle:"会议列表",
 				columns: [
 					{ type: 'selection', width: 60, align: 'center', export: 0 },
-					{ title: '会议编号', width: 120, key: 'id', sortable: true, export: 1 },
-					{ title: '会议名称', key: 'name', sorttable: true, export: 1 },
+					{ title: '会议编号', width: 120, key: 'id', align: 'center', sortable: true, export: 1 },
+					{ title: '会议名称', key: 'name', align: 'center', sorttable: true, export: 1 },
 					{ 
 						title: '党组织',
 						key: 'org',
+						align: 'center',
 						export: 1,
 						render: (h, params) => {
 							return h('span', params.row.org[params.row.org.length-1])
 						}
 					},
-					{ title: '预计开始时间', key: 'date', export: 1 },
-					{ title: '会议类型', key: 'type', export: 1 },
+					{ title: '预计开始时间', key: 'date', align: 'center', export: 1 },
+					{ title: '会议类型', key: 'type', align: 'center', export: 1 },
 					{ 
 						title: '状态',
 						key: 'status',
+						align: 'center',
 						export: 1,
 						render: (h, params) => {
 							let status = '';
@@ -155,9 +157,9 @@
 					if (res.code === 200) {
 						this.alldatas = res.data.result;
 						this.datas = cloneObject(this.alldatas);
-						if (Object.keys(this.$route.query).length !== 0) {
+						if (Object.keys(this.$route.params).length !== 0) {
 							this.datas = this.alldatas.filter((item)=>{
-								return item.org == this.$route.query.org;
+								return item.org == this.$route.params.org;
 							})
     				}
 						this.pageInfo.page = res.data.pageInfo.currentPage;

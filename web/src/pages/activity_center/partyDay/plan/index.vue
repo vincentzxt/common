@@ -1,45 +1,40 @@
 <template>
 	<div>
-		<Card :bordered="false" dis-hover class="ivu-mt list-index-card">
+		<Card v-if="loadHome" :bordered="false" dis-hover class="ivu-mt list-index-card">
 			<Tables
-			ref="table"
-      :datas="datas"
-      :columns="columns"
-      :pageInfo="pageInfo"
-      @on-page-change='handlePageChange'
-      @on-page-size-change='handlePageSizeChange'
-      showAdd showDel showExport
-			@on-add='handleOpenAdd'
-			@on-batch="handleBatch"
-			@on-export="handleExport"
-			@on-search="handleSearch">
-			<Input slot="condition1" class="cu-table-input" type="text" v-model="searchData.name" placeholder="请输入组织名称" clearable/>
-			<Input slot="condition1" class="cu-table-input ml10" type="text" v-model="searchData.address" placeholder="请输入组织地址" clearable/>
+				ref="table"
+				:datas="datas"
+				:columns="columns"
+				:pageInfo="pageInfo"
+				@on-page-change='handlePageChange'
+				@on-page-size-change='handlePageSizeChange'>
+				<Input slot="condition1" class="br5" type="text" v-model="searchData.title" placeholder="请输入计划标题" clearable/>
+				<DatePicker slot="condition2" class="ml10" type="date" v-model="searchData.date" placeholder="选择日期" format="yyyy-MM-dd" style="width:100%;" transfer></DatePicker>
 			</Tables>
 		</Card>
-		<CAdd v-if="loadAdd" v-model="openAdd" @on-close="handleCloseAdd"></CAdd>
-		<CEdit v-if="loadEdit" v-model="openEdit" :templateData="templateData" @on-close="handleCloseEdit"></CEdit>
-		<CView v-if="loadView" v-model="openView" :templateData="templateData" @on-close="handleCloseView"></CView>
+		<CList v-if="loadList" :data="childrenData" @on-close="handleListClose"></CList>
 	</div>
 </template>
 <script>
 	import Tables from '@/components/custom/cu-table';
 	import { logMessage } from '@/libs/data';
-	import CAdd from './add.vue';
-	import CEdit from './edit.vue';
-	import CView from './view.vue';
-	import { getOrgList } from '@/api/affairs_center/organization';
+	import { getActiveList } from '@/api/activity_center/partyDay';
+	import { getMemberList } from '@/api/affairs_center/member';
 	import dayjs from 'dayjs';
+	import { formatCascader, cloneObject } from '@/libs/tools';
+	import CList from './list';
 	export default {
-		name: 'organization-list',
-		components: { Tables, CAdd, CEdit, CView },
+		name: 'partyDay-plan',
+		components: { Tables, CList },
 		data() {
 			return {
-				pageTitle:"党组织列表",
+				pageTitle:"活动计划",
 				columns: [
 					{ type: 'selection', width: 60, align: 'center', export: 0 },
-					{ title: '组织名称', key: 'name', sortable: true, export: 1},
-					{ title: '组织地址', key: 'address', export: 1 },
+					{ title: '序号', width: 120, align: 'center', key: 'id', sortable: true, export: 1 },
+					{ title: '标题', key: 'title', align: 'center', sortable: true, export: 1 },
+					{ title: '活动时间', key: 'date', align: 'center', sortable: true, export: 1 },
+					{ title: '审核人', key: 'auditor', align: 'center', export: 1 },
 					{
 						title: '操作',
 						key: 'action',
@@ -51,42 +46,30 @@
 								h('a', {
 									on: {
 										click: () => {
-											this.handleOpenEdit(params.row)
+											this.handleGotoList(params.row,)
 										}
 									}
-								}, '编辑'),
-								h('a', {
-									style: {"margin-left": "10px"},
-									on: {
-										click: () => {
-											this.handleOpenView(params.row)
-										}
-									}
-								}, '查看')
+								}, '填写计划')
 							])
 						}
 					}
 				],
 				loading: false,
-				loadAdd: false,
-				openAdd: false,
-				loadEdit: false,
-				openEdit: false,
-				loadView: false,
-				openView: false,
+				loadHome: true,
+				loadList: false,
 				datas: [],
 				pageInfo: {
 					page: 1,
 					pages: 1,
-					pageSize: 10,
+					pageSize: 20,
 					totalNum: 0,
-					pageSizeOpts: [10, 20]
+					pageSizeOpts: [20, 30]
 				},
 				searchData: {
-					name: '',
-					address: ''
+					title: '',
+					date: ''
 				},
-				templateData: {}
+				childrenData: {}
 			};
 		},
 		methods: {
@@ -97,10 +80,12 @@
 					pageSize: this.pageInfo.pageSize
 				};
 				let sendData = Object.assign(page, this.searchData);
-				getOrgList(sendData).then(res => {
+				getActiveList().then(res => {
 					this.loading = false;
 					if (res.code === 200) {
-						this.datas = res.data.result;
+						this.datas = res.data.result.filter((item) => {
+							return item.status == 1;
+						});
 						this.pageInfo.page = res.data.pageInfo.currentPage;
 						this.pageInfo.pages = res.data.pageInfo.pages;
 						this.pageInfo.totalNum = res.data.pageInfo.totalNum;
@@ -112,53 +97,6 @@
 					this.loading = false;
 				});
 			},
-			handleOpenAdd() {
-				this.loadAdd = true;
-				this.$nextTick(() => {
-					this.openAdd = true;
-				})
-			},
-			handleCloseAdd() {
-				this.loadAdd = false;
-				this.openAdd = false;
-				this.getData();
-			},
-			handleOpenEdit(row) {
-				this.templateData = row;
-				this.loadEdit = true;
-				this.$nextTick(() => {
-					this.openEdit = true;
-				})
-			},
-			handleCloseEdit() {
-				this.loadEdit = false;
-				this.openEdit = false;
-				this.getData();
-			},
-			handleOpenView(row) {
-				this.templateData = row;
-				this.loadView = true;
-				this.$nextTick(() => {
-					this.openView = true;
-				})
-			},
-			handleCloseView() {
-				this.loadView = false;
-				this.openView = false;
-			},
-			handleBatch(val) {
-				if (val.name == 'delete') {
-					if (val.data.length > 0) {
-						//调用删除接口
-						this.$Notice.success({ title: logMessage.deleteSuccess });
-					} else {
-						this.$Notice.warning({ title: logMessage.deleteInfo });
-					}
-				}
-			},
-			handleSearch() {
-				this.getData();
-			},
 			handlePageChange(val) {
 				this.pageInfo.page = val;
 				this.getData();
@@ -168,15 +106,15 @@
 				this.pageInfo.pageSize = val;
 				this.getData();
 			},
-			handleExport() {
-				let exportColumns = this.columns.filter((item) => {
-					return item.export == 1
-				})
-				this.$refs.table.$refs.tableMain.exportCsv({
-					filename: `${this.pageTitle}-${dayjs().format('YYYYMMDDHHmmss')}.csv`,
-					columns: exportColumns,
-					data: this.datas
-				});
+			handleGotoList(val) {
+				this.childrenData = val;
+				this.loadHome = false;
+				this.loadList = true;
+			},
+			handleListClose() {
+				this.childrenData = {};
+				this.loadList = false;
+				this.loadHome = true;
 			}
 		},
 		mounted () {
@@ -185,6 +123,6 @@
 	}
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 	@import './index.less';
 </style>

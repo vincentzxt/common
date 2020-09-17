@@ -10,14 +10,14 @@ export default {
     path: '/affairs_center',
     name: 'affairs_center',
     redirect: {
-        name: `${pre}organization/list`
+        name: `${pre}organization-list`
     },
     meta,
     component: BasicLayout,
     children: [
         {
             path: 'organization/list',
-            name: `${pre}organization/list`,
+            name: `${pre}organization-list`,
             meta: {
                 ...meta,
                 title: '党组织列表'
@@ -26,7 +26,7 @@ export default {
         },
         {
             path: 'organization/map',
-            name: `${pre}organization/map`,
+            name: `${pre}organization-map`,
             meta: {
                 ...meta,
                 title: '党组织地图'
@@ -35,7 +35,7 @@ export default {
         },
         {
             path: 'organization/excellent',
-            name: `${pre}organization/excellent`,
+            name: `${pre}organization-excellent`,
             meta: {
                 ...meta,
                 title: '优秀党组织'
@@ -44,7 +44,7 @@ export default {
         },
         {
             path: 'organization/post',
-            name: `${pre}organization/post`,
+            name: `${pre}organization-post`,
             meta: {
                 ...meta,
                 title: '党内职务管理'
@@ -53,7 +53,7 @@ export default {
         },
         {
             path: 'member/list',
-            name: `${pre}member/list`,
+            name: `${pre}member-list`,
             meta: {
                 ...meta,
                 title: '党员列表'
@@ -62,7 +62,7 @@ export default {
         },
         {
             path: 'member/history',
-            name: `${pre}member/history`,
+            name: `${pre}member-history`,
             meta: {
                 ...meta,
                 title: '历史党员'
@@ -71,7 +71,7 @@ export default {
         },
         {
             path: 'member/volunteer',
-            name: `${pre}member/volunteer`,
+            name: `${pre}member-volunteer`,
             meta: {
                 ...meta,
                 title: '志愿者列表'
@@ -80,7 +80,7 @@ export default {
         },
         {
             path: 'member/house',
-            name: `${pre}member/house`,
+            name: `${pre}member-house`,
             meta: {
                 ...meta,
                 title: '党员中心户'
@@ -89,7 +89,7 @@ export default {
         },
         {
             path: 'member/develop',
-            name: `${pre}member/develop`,
+            name: `${pre}member-develop`,
             meta: {
                 ...meta,
                 title: '党员发展全纪实'
@@ -98,7 +98,7 @@ export default {
         },
         {
             path: 'relation/out',
-            name: `${pre}relation/out`,
+            name: `${pre}relation-out`,
             meta: {
                 ...meta,
                 title: '党员关系转出'
@@ -107,7 +107,7 @@ export default {
         },
         {
             path: 'relation/in',
-            name: `${pre}relation/in`,
+            name: `${pre}relation-in`,
             meta: {
                 ...meta,
                 title: '党员关系转入'
@@ -116,7 +116,7 @@ export default {
         },
         {
             path: 'flow/out',
-            name: `${pre}flow/out`,
+            name: `${pre}flow-out`,
             meta: {
                 ...meta,
                 title: '流动党员转出'
@@ -125,7 +125,7 @@ export default {
         },
         {
             path: 'flow/in',
-            name: `${pre}flow/in`,
+            name: `${pre}flow-in`,
             meta: {
                 ...meta,
                 title: '流动党员转入'

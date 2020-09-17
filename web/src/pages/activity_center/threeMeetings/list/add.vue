@@ -1,7 +1,7 @@
 <template>
   <div>
     <Modal v-model="showModal" title="添加会议列表" :loading="showLoading" :mask-closable="false" width="60%" :styles="{top: '20px'}" class="cutomer-modal-box-gay" @on-ok="handleSubmit" @on-cancel="handleClose">
-      <Form ref="form" :model="formData" :rules="ruleValidata" label-position="left" :label-width="100">
+      <Form ref="form" :model="formData" :rules="ruleValidata" :label-width="100">
 				<Card dis-hover class="ivu-mb-8" :bordered="false">
 					<Row :gutter="16">
 					  <Col span="8">

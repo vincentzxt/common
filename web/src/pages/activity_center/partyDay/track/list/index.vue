@@ -2,69 +2,71 @@
 	<div>
 		<Card :bordered="false" dis-hover class="ivu-mt list-index-card">
 			<Tables
-			ref="table"
-      :datas="datas"
-      :columns="columns"
-      :pageInfo="pageInfo"
-      @on-page-change='handlePageChange'
-      @on-page-size-change='handlePageSizeChange'
-      showAdd
-			@on-add='handleOpenAdd'
-			@on-export="handleExport">
-			<Input slot="condition1" class="br5" type="text" v-model="searchData.name" placeholder="请输入会议名称" clearable/>
-			<Input slot="condition2" class="br5 ml10" type="text" v-model="searchData.date" placeholder="请输入开始时间" clearable/>
-			<Cascader slot="condition3" class=" br5 ml10" style="width:100%;" :data="formatOrgList" v-model="searchData.org" :render-format="orgFormat" placeholder="选择党支部" change-on-select transfer @on-change="handleOrgChange"></Cascader></Tables>
+				ref="table"
+				:datas="datas"
+				:columns="columns"
+				:pageInfo="pageInfo"
+				@on-page-change='handlePageChange'
+				@on-page-size-change='handlePageSizeChange'
+				showReturn
+				@on-export="handleExport"
+				@on-return="handleReturn">
+				<Cascader slot="condition1" :data="formatOrgList" v-model="searchData.org" :render-format="orgFormat" placeholder="选择党组织" change-on-select transfer @on-change="handleOrgChange"></Cascader>
+			</Tables>
 		</Card>
-		<CAdd v-if="loadAdd" v-model="openAdd" :orgList="orgList" :memberList="memberList" @on-close="handleCloseAdd"></CAdd>
-		<CEdit v-if="loadEdit" v-model="openEdit" :orgList="orgList" :memberList="memberList" :templateData="templateData" @on-close="handleCloseEdit"></CEdit>
 		<CView v-if="loadView" v-model="openView" :memberList="memberList" :templateData="templateData" @on-close="handleCloseView"></CView>
 	</div>
 </template>
 <script>
 	import Tables from '@/components/custom/cu-table';
 	import { logMessage } from '@/libs/data';
-	import CAdd from './add.vue';
-	import CEdit from './edit.vue';
 	import CView from './view.vue';
-	import { getLifeList } from '@/api/activity_center/life';
+	import { getPlanList } from '@/api/activity_center/partyDay';
 	import { getOrgList } from '@/api/affairs_center/organization';
 	import { getMemberList } from '@/api/affairs_center/member';
 	import dayjs from 'dayjs';
 	import { formatCascader, cloneObject } from '@/libs/tools';
 	export default {
-		name: 'threeMeetings-list',
-		components: { Tables, CAdd, CEdit, CView },
+		name: 'partyDay-plan-list',
+		components: { Tables, CView },
+		props: {
+			data: {
+				type: Object,
+				default: () => {
+					return {}
+				}
+			}
+		},
 		data() {
 			return {
-				pageTitle:"会议列表",
+				pageTitle:"活动计划列表",
 				columns: [
 					{ type: 'selection', width: 60, align: 'center', export: 0 },
-					{ title: '会议编号', width: 120, key: 'id', align: 'center', sortable: true, export: 1 },
-					{ title: '会议名称', key: 'name', align: 'center', sorttable: true, export: 1 },
+					{ title: '序号', width: 120, align: 'center', key: 'id', sortable: true, export: 1 },
 					{ 
 						title: '党组织',
 						key: 'org',
 						align: 'center',
+						sortable: true,
 						export: 1,
 						render: (h, params) => {
-							return h('span', params.row.org[params.row.org.length-1])
-						}
-					},
-					{ title: '预计开始时间', key: 'date', align: 'center', export: 1 },
-					{ title: '会议类型', key: 'type', align: 'center', export: 1 },
+							return h('span', params.row.org[params.row.org.length-1]);
+						}},
+					{ title: '计划标题', key: 'title', align: 'center', sortable: true, export: 1 },
+					{ title: '添加时间', key: 'date', align: 'center', sortable: true, export: 1 },
 					{ 
 						title: '状态',
-						key: 'status',
+						key: 'is_success',
 						align: 'center',
 						export: 1,
 						render: (h, params) => {
 							let status = '';
 							let color = '';
-							if (params.row.status == 1) {
-								status = '未开始';
+							if (params.row.is_success == 1) {
+								status = '已完成';
 								color = '#19be6b';
 							} else {
-								status = '已结束';
+								status = '未完成';
 								color = '#ed4014';
 							}
 							return h('span', {
@@ -81,47 +83,31 @@
 						align: 'center',
 						export: 0,
 						render: (h, params) => {
-							if (params.row.status == 1) {
-								return h('div', [
-									h('a', {
-										on: {
-											click: () => {
-												this.handleOpenEdit(params.row)
-											}
+							return h('div', [
+								h('a', {
+									on: {
+										click: () => {
+											this.handleOpenView(params.row)
 										}
-									}, '编辑'),
-									h('a', {
-										style: { 'margin-left': '10px'},
-										on: {
-											click: () => {
-												this.handleStop(params.row)
-											}
+									}
+								}, '详情'),
+								h('a', {
+									style: { 'margin-left': '10px' },
+									on: {
+										click: () => {
+											this.handleOpenSuccess(params.row)
 										}
-									}, '结束')
-								])
-							} else {
-								return h('div', [
-									h('a', {
-										on: {
-											click: () => {
-												this.handleOpenView(params.row)
-											}
-										}
-									}, '详情')
-								])
-							}
+									}
+								}, '完成')
+							])
 						}
 					}
 				],
 				loading: false,
-				loadAdd: false,
-				openAdd: false,
-				loadEdit: false,
-				openEdit: false,
 				loadView: false,
 				openView: false,
-				alldatas: [],
 				datas: [],
+				alldatas: [],
 				pageInfo: {
 					page: 1,
 					pages: 1,
@@ -130,9 +116,8 @@
 					pageSizeOpts: [20, 30]
 				},
 				searchData: {
-					name: '',
-					date: '',
-					org: []
+					title: '',
+					date: ''
 				},
 				templateData: {},
 				orgList: [],
@@ -152,16 +137,11 @@
 					pageSize: this.pageInfo.pageSize
 				};
 				let sendData = Object.assign(page, this.searchData);
-				getLifeList().then(res => {
+				getPlanList().then(res => {
 					this.loading = false;
 					if (res.code === 200) {
 						this.alldatas = res.data.result;
 						this.datas = cloneObject(this.alldatas);
-						if (Object.keys(this.$route.query).length !== 0) {
-							this.datas = this.alldatas.filter((item)=>{
-								return item.org == this.$route.query.org;
-							})
-    				}
 						this.pageInfo.page = res.data.pageInfo.currentPage;
 						this.pageInfo.pages = res.data.pageInfo.pages;
 						this.pageInfo.totalNum = res.data.pageInfo.totalNum;
@@ -175,11 +155,6 @@
 			},
 			getOrgData() {
 				this.loading = true;
-				const page = {
-					page: this.pageInfo.page,
-					pageSize: this.pageInfo.pageSize
-				};
-				let sendData = Object.assign(page, this.searchData);
 				getOrgList().then(res => {
 					this.loading = false;
 					if (res.code === 200) {
@@ -206,29 +181,6 @@
 					this.loading = false;
 				});
 			},
-			handleOpenAdd() {
-				this.loadAdd = true;
-				this.$nextTick(() => {
-					this.openAdd = true;
-				})
-			},
-			handleCloseAdd() {
-				this.loadAdd = false;
-				this.openAdd = false;
-				this.getData();
-			},
-			handleOpenEdit(row) {
-				this.templateData = row;
-				this.loadEdit = true;
-				this.$nextTick(() => {
-					this.openEdit = true;
-				})
-			},
-			handleCloseEdit() {
-				this.loadEdit = false;
-				this.openEdit = false;
-				this.getData();
-			},
 			handleOpenView(row) {
 				this.templateData = row;
 				this.loadView = true;
@@ -239,6 +191,23 @@
 			handleCloseView() {
 				this.loadView = false;
 				this.openView = false;
+			},
+			handleBatch(val) {
+				if (val.name == 'delete') {
+					this.handleDelete(val.data);
+				} else if (val.name == 'enable') {
+					this.handleEnable(val.data);
+				} else if (val.name == 'disable') {
+					this.handleDisable(val.data);
+				}
+			},
+			handleDelete(data) {
+				if (data.length > 0) {
+					//调用删除接口
+					this.$Notice.success({ title: logMessage.deleteSuccess });
+				} else {
+					this.$Notice.warning({ title: logMessage.selInfo });
+				}
 			},
 			handlePageChange(val) {
 				this.pageInfo.page = val;
@@ -277,17 +246,13 @@
 					this.getData();
 				}
 			},
-			handleStop(val) {
-				for (let item of this.datas) {
-					if (item.id == val.id) {
-						item.status == 0;
-					}
-				}
+			handleReturn() {
+				this.$emit('on-close');
 			}
 		},
 		mounted () {
-			this.getMemberData();
 			this.getOrgData();
+			this.getMemberData();
 			this.getData();
 		}
 	}

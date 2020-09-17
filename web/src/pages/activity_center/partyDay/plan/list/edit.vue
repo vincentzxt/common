@@ -1,51 +1,27 @@
 <template>
   <div>
-    <Modal v-model="showModal" title="修改会议列表" :loading="showLoading" :mask-closable="false" width="60%" :styles="{top: '20px'}" class="cutomer-modal-box-gay" @on-ok="handleSubmit" @on-cancel="handleClose">
+    <Modal v-model="showModal" title="编辑活动计划" :loading="showLoading" :mask-closable="false" width="60%" :styles="{top: '20px'}" class="cutomer-modal-box-gay" @on-ok="handleSubmit" @on-cancel="handleClose">
       <Form ref="form" :model="formData" :rules="ruleValidata" :label-width="100">
 				<Card dis-hover class="ivu-mb-8" :bordered="false">
 					<Row :gutter="16">
-					  <Col span="8">
-              <FormItem prop="name" label="会议名称">
-                <Input type="text" v-model="formData.name" placeholder="请输入会议名称"/>
+					  <Col span="12">
+              <FormItem prop="title" label="计划标题">
+                <Input type="text" v-model="formData.title" placeholder="请输入计划标题"/>
               </FormItem>
             </Col>
-            <Col span="8">
-              <FormItem prop="date" label="会议时间">
-                <DatePicker type="datetime" v-model="formData.date" placeholder="选择日期" format="yyyy-MM-dd hh:mm:ss" style="width:100%;" transfer></DatePicker>
-              </FormItem>
-            </Col>
-            <Col span="8">
-              <FormItem prop="address" label="会议地点">
-                <Input type="text" v-model="formData.address" placeholder="请输入会议地点"/>
-              </FormItem>
-            </Col>
-            <Col span="8">
-              <FormItem prop="org" label="组织部门">
+            <Col span="12">
+              <FormItem prop="org" label="党组织">
                 <Cascader :data="formatOrgList" v-model="formData.org" :render-format="orgFormat" change-on-select transfer></Cascader>
               </FormItem>
             </Col>
-            <Col span="8">
-              <FormItem prop="host" label="主持人">
-                <Select v-model="formData.host" transfer>
-                  <Option v-for="(item, index) in filterMemberList" :key="index" :value="item.name">{{item.name}}</Option>
-                </Select>
-              </FormItem>
-            </Col>
-            <Col span="8">
-              <FormItem prop="type" label="会议类型">
-                <Select v-model="formData.type" transfer>
-                  <Option value="组织生活">组织生活</Option>
-                </Select>
+            <Col span="24">
+              <FormItem prop="members" label="参与人员">
+                <Transfer :data="transferMemberData" :target-keys="formData.members" :titles="['全部党员', '参与人员']" @on-change="memberChange"></Transfer>
               </FormItem>
             </Col>
             <Col span="24">
-              <FormItem prop="members" label="参会人员">
-                <Transfer :data="transferMemberData" :target-keys="formData.members" :titles="['全部党员', '参会人员']" @on-change="memberChange"></Transfer>
-              </FormItem>
-            </Col>
-            <Col span="24">
-              <FormItem prop="introduce" label="会议简介">
-                <Input type="textarea" :rows="3" v-model="formData.introduce"/>
+              <FormItem prop="content" label="计划内容">
+                <Input type="textarea" :rows="3" v-model="formData.content"/>
               </FormItem>
             </Col>
           </Row>
@@ -64,6 +40,12 @@
         type: Boolean,
         default: false
       },
+      templateData: {
+        type: Object,
+        default: () => {
+          return {}
+        }
+      },
       orgList: {
         type: Array,
         default: () => {
@@ -74,37 +56,23 @@
         default: () => {
           return []
         }
-      },
-      templateData: {
-        type: Object,
-        default: () => {
-          return {}
-        }
-      },
+      }
     },
     data () {
       return {
         showModal: false,
         showLoading: true,
         formData: {
-          name: '',
-          date: '',
-          address: '',
+          title: '',
           org: '',
-          host: '',
-          type: '支部大会',
           members: [],
-          introduce: ''
+          content: ''
         },
         ruleValidata: {
-          name: { required: true, message: '会议名称不能为空', trigger: 'blur' },
-          date: { required: true, type: 'date', message: '会议时间不能为空', trigger: 'change' },
-          address: { required: true, message: '会议地点不能为空', trigger: 'blur' },
-          org: { required: true, type: 'array', message: '组织部门不能为空', trigger: 'change' },
-          host: { required: true, message: '主持人不能为空', trigger: 'change' },
-          type: { required: true, message: '会议类型不能为空', trigger: 'change' },
-          members: { required: true, type: 'array', message: '参会人员不能为空', trigger: 'change' },
-          introduce: { required: true, message: '会议简介不能为空', trigger: 'blur' }
+          title: { required: true, message: '计划标题不能为空', trigger: 'blur' },
+          org: { required: true, type: 'array', message: '党组织不能为空', trigger: 'change' },
+          members: { required: true, type: 'array', message: '参与人员不能为空', trigger: 'change' },
+          content: { required: true, message: '计划内容不能为空', trigger: 'blur' }
         }
       }
     },

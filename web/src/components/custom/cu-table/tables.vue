@@ -2,8 +2,9 @@
 	<div>
 		<div class="cu-table-form">
 			<div class="cu-table-form-left">
-				<Button v-if="showAdd" class="br5" type="primary" icon="md-add" @click="handleAdd">新增</Button>
-        <Dropdown v-if="showEnable || showDisable || showDel" class="ml10" trigger="click" @on-click="handleBatch">
+				<Button v-if="showReturn" class="br5" type="warning" icon="md-return-left" @click="handleReturn">返回</Button>
+				<Button v-if="showAdd" class="br5" :class="showReturn ? 'ml10' : ''" type="primary" icon="md-add" @click="handleAdd">新增</Button>
+        <Dropdown v-if="showEnable || showDisable || showDel" :class="showReturn || showAdd ? 'ml10' : ''" trigger="click" @on-click="handleBatch">
           <Button class="br5" icon="md-list">批量操作</Button>
           <DropdownMenu slot="list">
             <DropdownItem v-if="showEnable" name="enable">启用</DropdownItem>
@@ -11,7 +12,7 @@
             <DropdownItem v-if="showDel" name="delete">删除</DropdownItem>
           </DropdownMenu>
         </DropDown>
-				<Button v-if="showExport" class="br5 ml10" @click="handleExport">
+				<Button v-if="showExport" class="br5" :class="showReturn || showAdd || showEnable || showDisable || showDel ? 'ml10' : ''" @click="handleExport">
 					<Icon class="mr10" custom="iconfont icon-daochu" size="4" />导出</Button>
 			</div>
 			<div class="cu-table-form-right">
@@ -68,6 +69,10 @@ export default {
 			type: Object,
 			default: {}
 		},
+		showReturn: {
+			type: Boolean,
+			default: false
+		},
 		showAdd: {
 			type: Boolean,
 			default: false
@@ -102,6 +107,10 @@ export default {
 	mounted() {
 	},
 	methods: {
+		//点击返回按钮
+		handleReturn() {
+			this.$emit('on-return');
+		},
 		//点击新增按钮
 		handleAdd() {
 			this.$emit('on-add');

@@ -35,17 +35,18 @@
 				pageTitle:"会议记录",
 				columns: [
 					{ type: 'selection', width: 60, align: 'center', export: 0 },
-					{ title: '会议编号', width: 120, key: 'id', sortable: true, export: 1 },
-					{ title: '会议名称', key: 'name', sorttable: true, export: 1 },
+					{ title: '会议编号', width: 120, key: 'id', align: 'center', sortable: true, export: 1 },
+					{ title: '会议名称', key: 'name', align: 'center', sorttable: true, export: 1 },
 					{ 
 						title: '党组织',
 						key: 'org',
+						align: 'center',
 						export: 1,
 						render: (h, params) => {
 							return h('span', params.row.org[params.row.org.length-1])
 						}
 					},
-					{ title: '添加人', key: 'record', export: 1 },
+					{ title: '添加人', key: 'record', align: 'center', export: 1 },
 					{
 						title: '操作',
 						key: 'action',

@@ -2,23 +2,23 @@
 	<div>
 		<Card :bordered="false" dis-hover class="ivu-mt list-index-card">
 			<Tables
-			ref="table"
-      :datas="datas"
-      :columns="columns"
-      :pageInfo="pageInfo"
-      @on-page-change='handlePageChange'
-      @on-page-size-change='handlePageSizeChange'
-      showAdd showDel
-			@on-add='handleOpenAdd'
-			@on-batch="handleBatch"
-			@on-export="handleExport"
-			@on-search="handleSearch">
-			<Input slot="condition1" class="cu-table-input" type="text" v-model="searchData.title" placeholder="请输入评议标题" clearable/>
+				ref="table"
+				:datas="datas"
+				:columns="columns"
+				:pageInfo="pageInfo"
+				@on-page-change='handlePageChange'
+				@on-page-size-change='handlePageSizeChange'
+				showReturn showAdd showDel
+				@on-add='handleOpenAdd'
+				@on-batch="handleBatch"
+				@on-export="handleExport"
+				@on-return="handleReturn">
+				<Cascader slot="condition1" :data="formatOrgList" v-model="searchData.org" :render-format="orgFormat" placeholder="选择党组织" change-on-select transfer @on-change="handleOrgChange"></Cascader>
 			</Tables>
 		</Card>
-		<CAdd v-if="loadAdd" v-model="openAdd" :orgList="orgList" @on-close="handleCloseAdd"></CAdd>
-		<CEdit v-if="loadEdit" v-model="openEdit" :templateData="templateData" :orgList="orgList" @on-close="handleCloseEdit"></CEdit>
-		<CView v-if="loadView" v-model="openView" :templateData="templateData" @on-close="handleCloseView"></CView>
+		<CAdd v-if="loadAdd" v-model="openAdd" :memberList="memberList" :orgList="orgList" @on-close="handleCloseAdd"></CAdd>
+		<CEdit v-if="loadEdit" v-model="openEdit" :memberList="memberList" :orgList="orgList" :templateData="templateData" @on-close="handleCloseEdit"></CEdit>
+		<CView v-if="loadView" v-model="openView" :memberList="memberList" :templateData="templateData" @on-close="handleCloseView"></CView>
 	</div>
 </template>
 <script>
@@ -27,29 +27,39 @@
 	import CAdd from './add.vue';
 	import CEdit from './edit.vue';
 	import CView from './view.vue';
+	import { getPlanList } from '@/api/activity_center/partyDay';
 	import { getOrgList } from '@/api/affairs_center/organization';
-	import { getDemocraticList } from '@/api/activity_center/democratic';
+	import { getMemberList } from '@/api/affairs_center/member';
 	import dayjs from 'dayjs';
+	import { formatCascader, cloneObject } from '@/libs/tools';
 	export default {
-		name: 'democratic-list',
+		name: 'partyDay-plan-list',
 		components: { Tables, CAdd, CEdit, CView },
+		props: {
+			data: {
+				type: Object,
+				default: () => {
+					return {}
+				}
+			}
+		},
 		data() {
 			return {
-				pageTitle:"民主评议",
+				pageTitle:"活动计划列表",
 				columns: [
 					{ type: 'selection', width: 60, align: 'center', export: 0 },
-					{ title: '序号', width: 100, key: 'id', align: 'center', sortable: true, export: 1 },
-					{ title: '评议标题', key: 'title', align: 'center', sorttable: true, export: 1 },
-					{ title: '评议日期', key: 'date', align: 'center', export: 1 },
+					{ title: '序号', width: 120, align: 'center', key: 'id', sortable: true, export: 1 },
 					{ 
-						title: '评议组织',
+						title: '党组织',
 						key: 'org',
 						align: 'center',
+						sortable: true,
 						export: 1,
 						render: (h, params) => {
-							return h('span', params.row.org[params.row.org.length-1])
-						}
-					},
+							return h('span', params.row.org[params.row.org.length-1]);
+						}},
+					{ title: '计划标题', key: 'title', align: 'center', sortable: true, export: 1 },
+					{ title: '添加时间', key: 'date', align: 'center', sortable: true, export: 1 },
 					{
 						title: '操作',
 						key: 'action',
@@ -61,20 +71,18 @@
 								h('a', {
 									on: {
 										click: () => {
-											this.handleOpenEdit(params.row)
-										}
-									}
-								}, '编辑'),
-								h('a', {
-									style: {
-										'margin-left': '10px'
-									},
-									on: {
-										click: () => {
 											this.handleOpenView(params.row)
 										}
 									}
-								}, '详情')
+								}, '详情'),
+								h('a', {
+									style: { 'margin-left': '10px' },
+									on: {
+										click: () => {
+											this.handleOpenEdit(params.row)
+										}
+									}
+								}, '编辑')
 							])
 						}
 					}
@@ -87,6 +95,7 @@
 				loadView: false,
 				openView: false,
 				datas: [],
+				alldatas: [],
 				pageInfo: {
 					page: 1,
 					pages: 1,
@@ -95,12 +104,19 @@
 					pageSizeOpts: [20, 30]
 				},
 				searchData: {
-					title: ''
+					title: '',
+					date: ''
 				},
 				templateData: {},
-				orgList: []
+				orgList: [],
+				memberList: []
 			};
 		},
+		computed: {
+      formatOrgList() {
+        return formatCascader(this.orgList);
+      }
+    },
 		methods: {
 			getData() {
 				this.loading = true;
@@ -109,10 +125,11 @@
 					pageSize: this.pageInfo.pageSize
 				};
 				let sendData = Object.assign(page, this.searchData);
-				getDemocraticList(sendData).then(res => {
+				getPlanList().then(res => {
 					this.loading = false;
 					if (res.code === 200) {
-						this.datas = res.data.result;
+						this.alldatas = res.data.result;
+						this.datas = cloneObject(this.alldatas);
 						this.pageInfo.page = res.data.pageInfo.currentPage;
 						this.pageInfo.pages = res.data.pageInfo.pages;
 						this.pageInfo.totalNum = res.data.pageInfo.totalNum;
@@ -130,6 +147,20 @@
 					this.loading = false;
 					if (res.code === 200) {
 						this.orgList = res.data.result;
+					} else {
+						this.$Message.error(res.message);
+					}
+				})
+				.catch(err => {
+					this.loading = false;
+				});
+			},
+			getMemberData() {
+				this.loading = true;
+				getMemberList().then(res => {
+					this.loading = false;
+					if (res.code === 200) {
+						this.memberList = res.data.result;
 					} else {
 						this.$Message.error(res.message);
 					}
@@ -183,30 +214,11 @@
 			},
 			handleDelete(data) {
 				if (data.length > 0) {
-						//调用删除接口
-						this.$Notice.success({ title: logMessage.deleteSuccess });
-					} else {
-						this.$Notice.warning({ title: logMessage.selInfo });
-					}
-			},
-			handleEnable(data) {
-				if (data.length > 0) {
-						//调用启用接口
-						this.$Notice.success({ title: logMessage.enableSuccess });
-					} else {
-						this.$Notice.warning({ title: logMessage.selInfo });
-					}
-			},
-			handleDisable(data) {
-				if (data.length > 0) {
-						//调用停用接口
-						this.$Notice.success({ title: logMessage.disableSuccess });
-					} else {
-						this.$Notice.warning({ title: logMessage.selInfo });
-					}
-			},
-			handleSearch() {
-				this.getData();
+					//调用删除接口
+					this.$Notice.success({ title: logMessage.deleteSuccess });
+				} else {
+					this.$Notice.warning({ title: logMessage.selInfo });
+				}
 			},
 			handlePageChange(val) {
 				this.pageInfo.page = val;
@@ -226,10 +238,32 @@
 					columns: exportColumns,
 					data: this.datas
 				});
+			},
+			orgFormat(labels, selectedData) {
+        let index = labels.length - 1;
+        let data = selectedData[index] || false;
+        if (data && data.code) {
+          return labels[index] + ' - ' + data.code;
+        }
+        return labels[index];
+			},
+			handleOrgChange(val) {
+				if (val.length > 0) {
+					let org = val[val.length-1];
+					this.datas = this.alldatas.filter((item)=>{
+						return item.org == org;
+					})
+				} else {
+					this.getData();
+				}
+			},
+			handleReturn() {
+				this.$emit('on-close');
 			}
 		},
 		mounted () {
 			this.getOrgData();
+			this.getMemberData();
 			this.getData();
 		}
 	}

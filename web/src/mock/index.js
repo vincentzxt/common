@@ -10,6 +10,8 @@ import { memberData } from './affairs_center/memberData';
 import { democraticData } from './activity_center/democraticData';
 import { threeMeetingListData } from './activity_center/threeMeetingListData';
 import { lifeData } from './activity_center/lifeData';
+import { partyDayActiveData, partyDayPlanData } from './activity_center/partyDayData';
+
 
 const apiurl = Setting.apiBaseURL;
 
@@ -43,6 +45,12 @@ Mock.mock(apiurl + '/api/activity_center/threeMeeting/list', 'get', (data) => {
 });
 Mock.mock(apiurl + '/api/activity_center/life/list', 'get', (data) => {
   return lifeData;
+});
+Mock.mock(apiurl + '/api/activity_center/partyDay/active/list', 'get', (data) => {
+  return partyDayActiveData;
+});
+Mock.mock(apiurl + '/api/activity_center/partyDay/plan/list', 'get', (data) => {
+  return partyDayPlanData;
 });
 
 /*const getData = (post, data, keys) => {

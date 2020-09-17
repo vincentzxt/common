@@ -10,14 +10,14 @@ export default {
     path: '/activity_center',
     name: 'activity_center',
     redirect: {
-        name: `${pre}threeMeetings/organizing`
+        name: `${pre}threeMeetings-organizing`
     },
     meta,
     component: BasicLayout,
     children: [
         {
             path: 'threeMeetings/organizing',
-            name: `${pre}threeMeetings/organizing`,
+            name: `${pre}threeMeetings-organizing`,
             meta: {
                 ...meta,
                 title: '组织会议'
@@ -26,7 +26,7 @@ export default {
         },
         {
             path: 'threeMeetings/list',
-            name: `${pre}threeMeetings/list`,
+            name: `${pre}threeMeetings-list`,
             meta: {
                 ...meta,
                 title: '会议列表'
@@ -35,7 +35,7 @@ export default {
         },
         {
             path: 'threeMeetings/record',
-            name: `${pre}threeMeetings/record`,
+            name: `${pre}threeMeetings-record`,
             meta: {
                 ...meta,
                 title: '会议记录'
@@ -43,35 +43,44 @@ export default {
             component: () => import('@/pages/activity_center/threeMeetings/record')
         },
         {
-            path: 'partyDay/plan',
-            name: `${pre}partyDay/plan`,
+            path: 'partyDay/active',
+            name: `${pre}partyDay-active`,
             meta: {
                 ...meta,
-                title: '党日活动计划'
+                title: '党日活动'
+            },
+            component: () => import('@/pages/activity_center/partyDay/active')
+        },
+        {
+            path: 'partyDay/plan',
+            name: `${pre}partyDay-plan`,
+            meta: {
+                ...meta,
+                title: '活动计划'
             },
             component: () => import('@/pages/activity_center/partyDay/plan')
         },
         {
-            path: 'partyDay/write',
-            name: `${pre}partyDay/write`,
+            path: 'partyDay/plan/list',
+            name: `${pre}partyDay-plan-list`,
             meta: {
                 ...meta,
-                title: '党日活动计划填写'
+                title: '活动计划列表'
             },
-            component: () => import('@/pages/activity_center/partyDay/write')
+            component: () => import('@/pages/activity_center/partyDay/plan/list')
         },
         {
             path: 'partyDay/track',
-            name: `${pre}partyDay/track`,
+            name: `${pre}partyDay-track`,
             meta: {
                 ...meta,
-                title: '党日活动计划跟踪'
+                title: '活动跟踪'
             },
             component: () => import('@/pages/activity_center/partyDay/track')
         },
         {
             path: 'brand/build',
-            name: `${pre}brand/build`,
+            name: `${pre}brand-build`,
             meta: {
                 ...meta,
                 title: '品牌党建建设'
@@ -89,7 +98,7 @@ export default {
         },
         {
             path: 'brand/log',
-            name: `${pre}brand/log`,
+            name: `${pre}brand-log`,
             meta: {
                 ...meta,
                 title: '品牌党建日志'
@@ -98,7 +107,7 @@ export default {
         },
         {
             path: 'first/setting',
-            name: `${pre}first/setting`,
+            name: `${pre}first-setting`,
             meta: {
                 ...meta,
                 title: '第一书记设置'
@@ -107,7 +116,7 @@ export default {
         },
         {
             path: 'first/dynamic',
-            name: `${pre}first/dynamic`,
+            name: `${pre}first-dynamic`,
             meta: {
                 ...meta,
                 title: '第一书记动态'
@@ -116,7 +125,7 @@ export default {
         },
         {
             path: 'first/log',
-            name: `${pre}first/log`,
+            name: `${pre}first-log`,
             meta: {
                 ...meta,
                 title: '第一书记日志'

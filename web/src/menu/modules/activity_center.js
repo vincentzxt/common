@@ -43,22 +43,22 @@ const partyDay = {
 	custom: 'iconfont icon-partyDay',
 	children: [
 		{
-			path: `${pre}partyDay/plan`,
-			title: '党日活动计划',
+			path: `${pre}partyDay/active`,
+			title: '党日活动',
 			menu_id: '1-2-1',
 			is_public: true,
 			menu_uncheck: true
 		},
 		{
-			path: `${pre}partyDay/write`,
-			title: '党日活动计划填写',
+			path: `${pre}partyDay/plan`,
+			title: '活动计划',
 			menu_id: '1-2-2',
 			is_public: true,
 			menu_uncheck: true
 		},
 		{
 			path: `${pre}partyDay/track`,
-			title: '党日活动计划跟踪',
+			title: '活动跟踪',
 			menu_id: '1-2-3',
 			is_public: true,
 			menu_uncheck: true

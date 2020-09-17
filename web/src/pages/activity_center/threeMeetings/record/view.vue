@@ -41,35 +41,10 @@
         formData: {
           name: '',
           summary: ''
-        },
-        ruleValidata: {
-          name: { required: true, message: '会议名称不能为空', trigger: 'blur' },
-          summary: { required: true,message: '会议记录不能为空', trigger: 'blur' }
         }
       }
     },
     methods: {
-      handleSubmit() {
-        this.$refs.form.validate(valid => {
-          if (valid) {
-            let senddata = this.formData;
-            this.showLoading = true;
-            setTimeout(() => {
-              this.showLoading = false;
-              this.$nextTick(() => {
-                this.showLoading = true;
-              })
-              this.$Notice.success({ title: logMessage.editSuccess });
-              this.$emit('on-close');
-            }, 1000);
-          } else {
-            this.showLoading = false;
-            this.$nextTick(() => {
-              this.showLoading = true;
-            })
-          }
-        })
-      },
       handleClose() {
         this.$emit('on-close');
       }
